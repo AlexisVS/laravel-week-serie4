@@ -83,6 +83,18 @@ Route::delete("/administration/fruit/{id}/delete", function ($id) {
     return redirect(url()->previous());
 });
 
+Route::get('/administration/fruit/{id}/edit', function ($id) {
+    $edit = Fruit::find($id);
+    return view('pages.backOffice.pages.editFruit', compact("edit"));
+});
+
+Route::put('/administration/fruit/{id}/update', function (Request $request, $id) {
+    $update = Fruit::find($id);
+    $update->name = $request->name;
+    $update->quantity = $request->quantity;
+    $update->save();
+    return redirect("/administartion/fruits/".$id);
+});
 
 // ? Legumes
 
@@ -113,4 +125,17 @@ Route::delete("/administration/legume/{id}/delete", function ($id) {
     $destroy = Legume::find($id);
     $destroy->delete();
     return redirect(url()->previous());
+});
+
+Route::get('/administration/legume/{id}/edit', function ($id) {
+    $edit = Legume::find($id);
+    return view('pages.backOffice.pages.editLegume', compact("edit"));
+});
+
+Route::put('/administration/legume/{id}/update', function (Request $request, $id) {
+    $update = Legume::find($id);
+    $update->name = $request->name;
+    $update->quantity = $request->quantity;
+    $update->save();
+    return redirect("/administration/legume/".$id);
 });
